@@ -28,6 +28,9 @@ struct NewsPage: Decodable {
     var news: [ArticleModel]?
     var requestId: String?
     
+    init() {
+    }
+    
     init(news: [ArticleModel]?, requestId: String?) {
         self.news = news?.map { article in
             var article = article
