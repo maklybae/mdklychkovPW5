@@ -13,10 +13,10 @@ final class NewsViewController: UIViewController {
     }
     
     // MARK: - Variables
-    private let interactor: NewsBuisnessLogic
+    private let interactor: NewsBuisnessLogic & NewsDataStore
     
     // MARK: - Lifecycle
-    init(interactor: NewsBuisnessLogic) {
+    init(interactor: NewsBuisnessLogic & NewsDataStore) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }

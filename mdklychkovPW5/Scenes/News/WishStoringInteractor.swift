@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class NewsInteractor: NewsBuisnessLogic {
+final class NewsInteractor: NewsBuisnessLogic, NewsDataStore {
     // MARK: - Variables
     private let presenter: NewsPresentaionLogic
     private let worker = NewsWorker()

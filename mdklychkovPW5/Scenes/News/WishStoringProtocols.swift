@@ -9,6 +9,10 @@
 protocol NewsBuisnessLogic {
 }
 
+// MARK: - DataStore protocol
+protocol NewsDataStore {
+}
+
 // MARK: - PresentationLogic protocol
 protocol NewsPresentaionLogic {
 }
