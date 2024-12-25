@@ -12,6 +12,21 @@ enum News {
     
     
     // MARK: - Use Cases
-    // MARK: -
+    enum LoadFreshNews {
+        struct Request {
+        }
+        struct Response {
+        }
+        struct ViewModel {
+        }
+    }
     
+    enum LoadMoreNews {
+        struct Request {
+        }
+        struct Response {
+        }
+        struct ViewModel {
+        }
+    }
 }

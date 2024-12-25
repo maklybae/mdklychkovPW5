@@ -12,9 +12,19 @@ final class NewsInteractor: NewsBuisnessLogic, NewsDataStore {
     private let presenter: NewsPresentaionLogic
     private let worker = NewsWorker()
     
+    // MARK: - Properties
+    var articles: [ArticleModel] = []
+    
     init(presenter: NewsPresentaionLogic) {
         self.presenter = presenter
     }
     
     // MARK: - Use Cases
+    func loadFreshNews(_ request: News.LoadFreshNews.Request) {
+        <#code#>
+    }
+    
+    func loadMoreNews(_ request: News.LoadMoreNews.Request) {
+        <#code#>
+    }
 }

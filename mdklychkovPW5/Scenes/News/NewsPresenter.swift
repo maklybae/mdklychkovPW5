@@ -12,6 +12,13 @@ final class NewsPresenter: NewsPresentaionLogic {
     weak var view: NewsViewController?
         
     // MARK: - Public funcs
+    func presentFreshNews(_ response: News.LoadFreshNews.Response) {
+        <#code#>
+    }
+    
+    func presentMoreNews(_ response: News.LoadMoreNews.Response) {
+        <#code#>
+    }
     
     // MARK: - Private funcs
 }
