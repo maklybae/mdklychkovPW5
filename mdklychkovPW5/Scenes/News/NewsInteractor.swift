@@ -29,6 +29,7 @@ final class NewsInteractor: NewsBuisnessLogic, NewsDataStore {
     
     // MARK: - Use Cases
     public func loadFreshNews(_ request: News.LoadFreshNews.Request) {
+        pageIndex = 1
         worker.fetchNews(rubricId: Constants.rubricId, pageSize: Constants.pageSize, pageIndex: pageIndex) { [weak self] response in
             DispatchQueue.global().async {
                 switch response {
@@ -54,11 +55,11 @@ final class NewsInteractor: NewsBuisnessLogic, NewsDataStore {
     }
     
     public func loadMoreNews(_ request: News.LoadMoreNews.Request) {
+        pageIndex += 1
         worker.fetchNews(rubricId: Constants.rubricId, pageSize: Constants.pageSize, pageIndex: pageIndex) { [weak self] response in
             DispatchQueue.global(qos: .userInitiated).async {
                 switch response {
                 case .success(let serverResponse):
-                    print(serverResponse.data)
                     if let data = serverResponse.data {
                         let newsPage = try? self?.decoder.decode(NewsPage.self, from: data)
                         DispatchQueue.main.async {

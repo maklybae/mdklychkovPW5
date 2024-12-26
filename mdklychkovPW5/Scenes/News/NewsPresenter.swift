@@ -13,11 +13,11 @@ final class NewsPresenter: NewsPresentaionLogic {
         
     // MARK: - Public funcs
     func presentFreshNews(_ response: News.LoadFreshNews.Response) {
-        view?.displayLoadedNews()
+        view?.displayLoadedFreshNews()
     }
     
     func presentMoreNews(_ response: News.LoadMoreNews.Response) {
-        view?.displayLoadedNews()
+        view?.displayLoadedMoreNews()
     }
     
     // MARK: - Private funcs

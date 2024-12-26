@@ -15,22 +15,20 @@ final class NewsViewController: UIViewController {
     
     // MARK: - Variables
     private let interactor: NewsBuisnessLogic & NewsDataStore
-    lazy private var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.backgroundColor = .systemBackground
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 500
-        
-        tableView.register(ArticleCell.self, forCellReuseIdentifier: ArticleCell.reuseIdentifier)
-        tableView.dataSource = self
-        tableView.delegate = self
-        return tableView
-    }()
+    private let tableView = UITableView(frame: .zero, style: .plain)
+    private let activityIndicator = UIActivityIndicatorView(style: .medium)
     
-    private let activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
-        return activityIndicator
-    }()
+    // MARK: - Properties
+    private var loadMoreStatus = false {
+        didSet {
+            activityIndicator.isHidden = !loadMoreStatus
+            if loadMoreStatus {
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.stopAnimating()
+            }
+        }
+    }
     
     // MARK: - Lifecycle
     init(interactor: NewsBuisnessLogic & NewsDataStore) {
@@ -43,28 +41,56 @@ final class NewsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         title = "News Feed"
         view.backgroundColor = .systemBackground
         
-        view.addSubview(tableView)
-        
-        tableView.pinTop(to: view.safeAreaLayoutGuide.topAnchor)
-        tableView.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
-        tableView.pinLeft(to: view.leadingAnchor)
-        tableView.pinRight(to: view.trailingAnchor)
+        configureTableView()
+        configureActivityIndicator()
         
         interactor.loadFreshNews(News.LoadFreshNews.Request())
     }
     
     
     // MARK: - Public funcs
-    public func displayLoadedNews() {
+    public func displayLoadedFreshNews() {
+        tableView.reloadData()
+    }
+    
+    public func displayLoadedMoreNews() {
+        loadMoreStatus = false
         tableView.reloadData()
     }
     
     // MARK: - Private funcs
+    private func configureTableView() {
+        tableView.backgroundColor = .systemBackground
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 500
+        
+        tableView.register(ArticleCell.self, forCellReuseIdentifier: ArticleCell.reuseIdentifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        view.addSubview(tableView)
+        tableView.pinTop(to: view.safeAreaLayoutGuide.topAnchor)
+        tableView.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
+        tableView.pinLeft(to: view.leadingAnchor)
+        tableView.pinRight(to: view.trailingAnchor)
+    }
+    
+    private func configureActivityIndicator() {
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: tableView.rowHeight, height: 44)
+        activityIndicator.hidesWhenStopped = true
+        tableView.tableFooterView = activityIndicator
+    }
+    
+    private func loadMore() {
+        if ( !loadMoreStatus ) {
+            loadMoreStatus = true
+            interactor.loadMoreNews(News.LoadMoreNews.Request())
+        }
+    }
 }
 
 // MARK: - Extension UITableViewDataSource
@@ -82,8 +108,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == interactor.articles.count - 1 {
-            activityIndicator.startAnimating()
-            tableView.tableFooterView = activityIndicator
+            loadMore()
         }
     }
 }
