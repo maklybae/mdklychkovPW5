@@ -14,7 +14,7 @@ enum NewsSeldonEndpoint : Endpoint {
     var compositePath: String {
         switch self {
         case .news:
-            return "api/Section"
+            return "/api/Section"
         }
     }
     

@@ -30,7 +30,7 @@ final class NewsInteractor: NewsBuisnessLogic, NewsDataStore {
     // MARK: - Use Cases
     public func loadFreshNews(_ request: News.LoadFreshNews.Request) {
         worker.fetchNews(rubricId: Constants.rubricId, pageSize: Constants.pageSize, pageIndex: pageIndex) { [weak self] response in
-            DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.global().async {
                 switch response {
                 case .success(let serverResponse):
                     if let data = serverResponse.data {
@@ -58,6 +58,7 @@ final class NewsInteractor: NewsBuisnessLogic, NewsDataStore {
             DispatchQueue.global(qos: .userInitiated).async {
                 switch response {
                 case .success(let serverResponse):
+                    print(serverResponse.data)
                     if let data = serverResponse.data {
                         let newsPage = try? self?.decoder.decode(NewsPage.self, from: data)
                         DispatchQueue.main.async {
