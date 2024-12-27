@@ -10,9 +10,11 @@ import WebKit
 import SkeletonView
 
 final class WebArticleViewController: UIViewController {
+    // MARK: - Constants
     private let interactor: WebArticleBuisnessLogic
     private let webView = WKWebView()
     
+    // MARK: - Lifecycle
     init(interactor: WebArticleBuisnessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -30,7 +32,7 @@ final class WebArticleViewController: UIViewController {
         interactor.loadURL(WebArticle.LoadURL.Request())
     }
     
-    public func setupUI() {
+    private func setupUI() {
         title = "Article"
         view.backgroundColor = .systemBackground
         
@@ -43,6 +45,7 @@ final class WebArticleViewController: UIViewController {
         webView.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
     }
     
+    // MARK: - Public funcs
     public func loadURL(_ url: URL) {
         view.showAnimatedGradientSkeleton()
         webView.load(URLRequest(url: url))
@@ -57,6 +60,7 @@ final class WebArticleViewController: UIViewController {
     }
 }
 
+// MARK: - Extension WKNavigationDelegate
 extension WebArticleViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         view.hideSkeleton(transition: .crossDissolve(0.25))

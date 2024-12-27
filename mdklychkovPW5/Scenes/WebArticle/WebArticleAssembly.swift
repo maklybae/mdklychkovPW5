@@ -8,6 +8,7 @@
 import UIKit
 
 enum WebArticleAssembly {
+    // MARK: - Build
     static func build(withURL url: URL) -> UIViewController {
         let presenter = WebArticlePresenter()
         let interactor = WebArticleInteractor(presenter: presenter, url: url)

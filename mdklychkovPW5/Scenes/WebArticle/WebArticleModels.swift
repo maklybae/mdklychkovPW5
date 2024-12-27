@@ -8,6 +8,7 @@
 import Foundation
 
 enum WebArticle {
+    // MARK: - Use Cases
     enum LoadURL {
         struct Request { }
         struct Response {

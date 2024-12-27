@@ -11,6 +11,8 @@ import Kingfisher
 final class NewsViewController: UIViewController {
     // MARK: - Constants
     enum Constants {
+        static let estimatedRowHeight: CGFloat = 500
+        static let activityIndicatorHeight: CGFloat = 44
     }
     
     // MARK: - Variables
@@ -66,7 +68,7 @@ final class NewsViewController: UIViewController {
     private func configureTableView() {
         tableView.backgroundColor = .systemBackground
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 500
+        tableView.estimatedRowHeight = Constants.estimatedRowHeight
         
         tableView.register(ArticleCell.self, forCellReuseIdentifier: ArticleCell.reuseIdentifier)
         tableView.dataSource = self
@@ -80,7 +82,7 @@ final class NewsViewController: UIViewController {
     }
     
     private func configureActivityIndicator() {
-        activityIndicator.frame = CGRect(x: 0, y: 0, width: tableView.rowHeight, height: 44)
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: tableView.rowHeight, height: Constants.activityIndicatorHeight)
         activityIndicator.hidesWhenStopped = true
         tableView.tableFooterView = activityIndicator
     }

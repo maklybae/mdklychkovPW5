@@ -23,6 +23,7 @@ final class NewsInteractor: NewsBuisnessLogic, NewsDataStore {
     // MARK: - Properties
     var articles: [ArticleModel] = []
     
+    // MARK: - Constructor
     init(presenter: NewsPresentaionLogic) {
         self.presenter = presenter
     }

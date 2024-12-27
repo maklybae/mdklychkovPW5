@@ -8,9 +8,6 @@
 import UIKit
 
 enum News {
-    // MARK: - ViewModels
-    
-    
     // MARK: - Use Cases
     enum LoadFreshNews {
         struct Request {
