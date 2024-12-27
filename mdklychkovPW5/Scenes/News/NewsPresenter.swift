@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 final class NewsPresenter: NewsPresentaionLogic {
     // MARK: - Variables
     weak var view: NewsViewController?
-        
+    
     // MARK: - Public funcs
     func presentFreshNews(_ response: News.LoadFreshNews.Response) {
         view?.displayLoadedFreshNews()
@@ -24,5 +25,9 @@ final class NewsPresenter: NewsPresentaionLogic {
         response.navigationController?.pushViewController(WebArticleAssembly.build(withURL: response.url), animated: true)
     }
     
-    // MARK: - Private funcs
+    func presentShareArticle(_ response: News.ShareArticle.Response) {
+        let activityVC = UIActivityViewController(activityItems: [response.url], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = view?.view
+        view?.present(activityVC, animated: true)
+    }
 }

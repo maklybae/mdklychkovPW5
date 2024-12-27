@@ -42,4 +42,15 @@ enum News {
         struct ViewModel {
         }
     }
+    
+    enum ShareArticle {
+        struct Request {
+            var index: Int
+        }
+        struct Response {
+            var url: URL
+        }
+        struct ViewModel {
+        }
+    }
 }

@@ -80,4 +80,9 @@ final class NewsInteractor: NewsBuisnessLogic, NewsDataStore {
         let article = articles[request.index]
         presenter.presentWebArticle(News.ShowWebArticle.Response(url: article.articleUrl!, navigationController: request.navigationController))
     }
+    
+    func shareArticle(_ request: News.ShareArticle.Request) {
+        let article = articles[request.index]
+        presenter.presentShareArticle(News.ShareArticle.Response(url: article.articleUrl!))
+    }
 }

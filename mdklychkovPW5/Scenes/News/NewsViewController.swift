@@ -91,6 +91,10 @@ final class NewsViewController: UIViewController {
             interactor.loadMoreNews(News.LoadMoreNews.Request())
         }
     }
+    
+    private func sharePressed(forIndex index: Int) {
+        interactor.shareArticle(News.ShareArticle.Request(index: index))
+    }
 }
 
 // MARK: - Extension UITableViewDataSource
@@ -118,5 +122,19 @@ extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         interactor.showWebArticle(News.ShowWebArticle.Request(index: indexPath.row, navigationController: navigationController))
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal,
+                                        title: "Share") { [weak self] (_, _, completionHandler) in
+            self?.sharePressed(forIndex: indexPath.row)
+            completionHandler(true)
+        }
+        
+        action.image = UIImage(systemName: "square.and.arrow.up")
+        action.backgroundColor = .systemBlue
+    
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        return configuration
     }
 }
