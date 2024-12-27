@@ -29,4 +29,17 @@ enum News {
         struct ViewModel {
         }
     }
+    
+    enum ShowWebArticle {
+        struct Request {
+            var index: Int
+            var navigationController: UINavigationController?
+        }
+        struct Response {
+            var url: URL
+            var navigationController: UINavigationController?
+        }
+        struct ViewModel {
+        }
+    }
 }

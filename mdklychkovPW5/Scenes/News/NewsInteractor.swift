@@ -76,5 +76,8 @@ final class NewsInteractor: NewsBuisnessLogic, NewsDataStore {
         }
     }
     
-    // MARK: - Private funcs
+    func showWebArticle(_ request: News.ShowWebArticle.Request) {
+        let article = articles[request.index]
+        presenter.presentWebArticle(News.ShowWebArticle.Response(url: article.articleUrl!, navigationController: request.navigationController))
+    }
 }

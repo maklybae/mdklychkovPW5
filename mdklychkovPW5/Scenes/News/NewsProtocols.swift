@@ -9,6 +9,7 @@
 protocol NewsBuisnessLogic {
     func loadFreshNews(_ request: News.LoadFreshNews.Request)
     func loadMoreNews(_ request: News.LoadMoreNews.Request)
+    func showWebArticle(_ request: News.ShowWebArticle.Request)
 }
 
 // MARK: - DataStore protocol
@@ -20,4 +21,5 @@ protocol NewsDataStore {
 protocol NewsPresentaionLogic {
     func presentFreshNews(_ response: News.LoadFreshNews.Response)
     func presentMoreNews(_ response: News.LoadMoreNews.Response)
+    func presentWebArticle(_ response: News.ShowWebArticle.Response)
 }

@@ -20,5 +20,9 @@ final class NewsPresenter: NewsPresentaionLogic {
         view?.displayLoadedMoreNews()
     }
     
+    func presentWebArticle(_ response: News.ShowWebArticle.Response) {
+        response.navigationController?.pushViewController(WebArticleAssembly.build(withURL: response.url), animated: true)
+    }
+    
     // MARK: - Private funcs
 }

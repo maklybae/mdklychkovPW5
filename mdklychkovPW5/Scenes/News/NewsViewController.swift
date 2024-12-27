@@ -94,7 +94,7 @@ final class NewsViewController: UIViewController {
 }
 
 // MARK: - Extension UITableViewDataSource
-extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
+extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         interactor.articles.count
     }
@@ -105,10 +105,18 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
+}
+
+// MARK: - Extension UITableViewDelegate
+extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == interactor.articles.count - 1 {
             loadMore()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        interactor.showWebArticle(News.ShowWebArticle.Request(index: indexPath.row, navigationController: navigationController))
     }
 }
